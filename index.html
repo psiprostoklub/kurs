@@ -43,7 +43,7 @@ input:focus,select:focus{border-color:var(--violet);box-shadow:0 0 0 3px color-m
 .list{display:grid;gap:8px}.listitem{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:13px 14px;display:grid;grid-template-columns:120px minmax(0,1fr) 160px 150px;gap:14px;align-items:center;color:var(--text);text-align:left}.listitem:hover{border-color:var(--violet)}.listdate{font-weight:850}.smallmuted{font-size:12px;color:var(--muted)}.listtitle{font-weight:850;line-height:1.25}
 .calendar{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}.calHead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;border-bottom:1px solid var(--line)}.period{font-weight:900;font-size:18px}
 .weekhead,.monthgrid{display:grid;grid-template-columns:repeat(7,minmax(112px,1fr));min-width:784px}.weekhead{background:var(--bg);border-bottom:1px solid var(--line)}.weekhead div{text-align:center;padding:9px;font-size:11px;font-weight:850;color:var(--muted);letter-spacing:.08em}
-.calwrap{overflow:auto}.day{min-height:130px;padding:8px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);position:relative}.day:nth-child(7n){border-right:0}.day.other{opacity:.42;background:var(--bg)}.daynum{font-weight:850;font-size:12px;margin-bottom:6px}.calEvent{display:block;width:100%;border:0;text-align:left;border-radius:10px;padding:7px 8px;margin:5px 0;background:linear-gradient(110deg,#fff0f5,#f4f0ff,#eef9ff);color:#252631;font-size:11px;line-height:1.22}.calEvent strong{display:block}.calEvent small{display:block;opacity:.72;margin-top:3px}.approx{display:inline-flex;padding:3px 6px;border-radius:999px;background:#fff1c8;color:#735500;font-size:10px;font-weight:800}
+.calwrap{overflow:auto}.day{min-height:130px;padding:8px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);position:relative}.day:nth-child(7n){border-right:0}.day.other{opacity:.42;background:var(--bg)}.daynum{font-weight:850;font-size:12px;margin-bottom:6px}.calEvent{display:block;width:100%;border:0;text-align:left;border-radius:10px;padding:7px 8px;margin:5px 0;background:linear-gradient(110deg,#fff0f5,#f4f0ff,#eef9ff);color:#252631;font-size:11px;line-height:1.22}.calEvent strong{display:block}.calEvent small{display:block;opacity:.72;margin-top:3px}
 .empty{padding:55px;text-align:center;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:var(--radius)}
 dialog{border:0;padding:0;background:transparent;max-width:min(980px,calc(100vw - 28px));width:100%;color:var(--text)}dialog::backdrop{background:rgba(17,18,24,.62);backdrop-filter:blur(5px)}.modal{background:var(--panel);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.3)}
 .modalHead{padding:22px 24px 18px;background:linear-gradient(125deg,#fff1f5,#f5f2ff,#eefaff);color:#24242a;position:relative}.modalHead h2{font-size:clamp(24px,3.4vw,40px);line-height:1.05;letter-spacing:-.04em;margin:8px 50px 8px 0}.modalHead p{margin:0;opacity:.7}.modalClose{position:absolute;right:15px;top:15px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(0,0,0,.08);background:#fff;font-size:22px}
@@ -558,7 +558,7 @@ dialog{border:0;padding:0;background:transparent;max-width:min(980px,calc(100vw 
 .listitem{
   position:relative;
   display:grid;
-  grid-template-columns:minmax(0,1.7fr) 210px minmax(250px,auto);
+  grid-template-columns:minmax(0,1.7fr) 210px minmax(280px,auto);
   gap:18px;
   align-items:center;
   width:100%;
@@ -800,6 +800,479 @@ dialog{border:0;padding:0;background:transparent;max-width:min(980px,calc(100vw 
   .listActions{justify-content:flex-start}
 }
 
+
+/* ===== Stable card action layout ===== */
+.cards{align-items:stretch}
+.card{
+  position:relative;
+  display:flex!important;
+  flex-direction:column!important;
+  width:100%;
+  min-width:0;
+  height:100%;
+  box-sizing:border-box;
+  cursor:pointer;
+}
+.cardActions{
+  margin-top:auto;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  gap:9px;
+  flex-wrap:wrap;
+}
+.cardActions .priceBuy{margin-right:0}
+.price.priceBuy,
+.modalPrice .priceBuy,
+.listPriceBtn{
+  background:transparent!important;
+  color:var(--accent)!important;
+  border:1.5px solid rgba(143,117,190,.38)!important;
+  box-shadow:none!important;
+  border-radius:999px;
+}
+.price.priceBuy:hover,
+.modalPrice .priceBuy:hover,
+.listPriceBtn:hover{
+  background:rgba(151,125,211,.05)!important;
+  border-color:rgba(143,117,190,.62)!important;
+  transform:none!important;
+  box-shadow:none!important;
+  filter:none!important;
+}
+.addCartTextBtn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:36px;
+  padding:8px 13px;
+  border-radius:999px;
+  border:1px solid rgba(235,145,105,.42);
+  background:transparent;
+  color:#c87654;
+  font-size:12px;
+  font-weight:900;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.addCartTextBtn:hover{background:rgba(255,241,235,.75)}
+.addCartTextBtn.inCart{
+  border-color:rgba(77,155,126,.34);
+  color:#3f806b;
+  background:rgba(233,249,242,.72);
+}
+
+/* one neutral color for every duration */
+.card,.listitem,
+.card.duration-short,.card.duration-medium,.card.duration-long,
+.listitem.duration-short,.listitem.duration-medium,.listitem.duration-long{
+  background:var(--panel)!important;
+  border-color:var(--line)!important;
+}
+.calEvent,.calEvent.duration-short,.calEvent.duration-medium,.calEvent.duration-long{
+  background:linear-gradient(110deg,#fff7fa,#f8f5ff,#f4fbff)!important;
+  border-color:var(--line)!important;
+}
+.durationLegend{display:none!important}
+
+/* top cart */
+.cartTopBtn{
+  display:inline-flex;align-items:center;gap:7px;
+  min-height:38px;padding:7px 11px;
+  border-radius:12px;border:1px solid var(--line);
+  background:var(--panel);color:var(--text);font-weight:850;cursor:pointer;
+}
+.cartTopBtn:hover{border-color:var(--violet)}
+.cartTopBtn b{
+  min-width:23px;height:23px;border-radius:999px;display:grid;place-items:center;
+  background:linear-gradient(105deg,#ff8eae,#9c83f6,#69cbe9);
+  color:white;font-size:11px;
+}
+
+/* cart modal */
+#cartModal{
+  border:0;padding:0;background:transparent;
+  max-width:min(760px,calc(100vw - 24px));width:100%;color:var(--text)
+}
+#cartModal::backdrop{background:rgba(17,18,24,.62);backdrop-filter:blur(5px)}
+.cartDialog{
+  background:var(--panel);border:1px solid var(--line);border-radius:26px;
+  overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.28)
+}
+.cartHead{
+  position:relative;padding:20px 22px 17px;
+  background:linear-gradient(110deg,#fff2f7,#f4efff,#edf9ff);
+  border-bottom:1px solid var(--line)
+}
+.cartHead h3{margin:3px 48px 3px 0;font-size:27px;line-height:1.1}
+.cartHead p{margin:0;color:var(--muted);font-size:12px}
+.cartClose{
+  position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--line);background:white;font-size:21px;cursor:pointer
+}
+.cartBody{padding:18px 22px 22px}
+.cartEmpty{
+  padding:34px 15px;text-align:center;border:1px dashed var(--line);
+  border-radius:17px;color:var(--muted)
+}
+.cartItems{display:grid;gap:9px}
+.cartItem{
+  display:grid;grid-template-columns:minmax(0,1fr) auto auto;
+  gap:12px;align-items:center;padding:12px 13px;
+  border:1px solid var(--line);border-radius:15px;background:var(--bg)
+}
+.cartItemTitle{font-weight:850;font-size:14px;line-height:1.25}
+.cartItemMeta{font-size:11px;color:var(--muted);margin-top:4px}
+.cartItemPrice{font-weight:900;white-space:nowrap}
+.cartRemove{
+  width:31px;height:31px;border-radius:50%;border:1px solid var(--line);
+  background:var(--panel);cursor:pointer;color:var(--muted);font-size:17px
+}
+.cartFoot{
+  display:flex;justify-content:space-between;gap:14px;align-items:center;
+  margin-top:16px;padding-top:16px;border-top:1px solid var(--line)
+}
+.cartTotal b{display:block;font-size:18px}
+.cartTotal span{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.cartBuyBtn{
+  border:0;border-radius:14px;padding:13px 20px;
+  color:white;font-weight:900;cursor:pointer;
+  background:linear-gradient(105deg,#ff779e,#9c7eff,#61c9ee);
+  box-shadow:0 9px 22px rgba(141,112,225,.22)
+}
+@media(max-width:650px){
+  .cartItem{grid-template-columns:1fr auto}
+  .cartItemPrice{grid-column:1}
+  .cartRemove{grid-column:2;grid-row:1}
+  .cartFoot{align-items:stretch;flex-direction:column}
+  .cartBuyBtn{width:100%}
+}
+
+
+/* Larger audience badges */
+.audiencePill{
+  padding:8px 13px!important;
+  font-size:12px!important;
+  font-weight:900!important;
+  min-height:30px;
+}
+.cardAudienceTop .audiencePill{
+  padding:8px 13px!important;
+  font-size:12px!important;
+  min-height:30px;
+}
+.listAudience .audiencePill{
+  padding:7px 11px!important;
+  font-size:11px!important;
+  min-height:28px;
+}
+.modalBody .audiencePill{
+  padding:8px 13px!important;
+  font-size:12px!important;
+  min-height:30px;
+}
+
+
+/* ===== Psychology Prosto palette for catalogue list/actions ===== */
+.list{
+  gap:14px!important;
+}
+.listitem{
+  position:relative;
+  overflow:hidden;
+  grid-template-columns:minmax(0,1.75fr) 205px 205px!important;
+  gap:22px!important;
+  padding:20px 22px!important;
+  border:1px solid #e6e1f2!important;
+  border-radius:24px!important;
+  background:
+    linear-gradient(#fff,#fff) padding-box,
+    linear-gradient(105deg,rgba(255,142,178,.45),rgba(166,139,255,.38),rgba(97,204,238,.38)) border-box!important;
+  box-shadow:0 8px 24px rgba(93,79,139,.045)!important;
+}
+.listitem:before{
+  content:"";
+  position:absolute;left:0;top:0;bottom:0;width:5px;
+  background:linear-gradient(180deg,#ff8eb2 0%,#a78cff 52%,#64caec 100%);
+}
+.listitem:hover{
+  border-color:transparent!important;
+  box-shadow:0 12px 30px rgba(104,83,163,.09)!important;
+}
+.listOnline{
+  border:1px solid #f3b7d0!important;
+  background:linear-gradient(105deg,#fff1f7 0%,#f4efff 52%,#eefaff 100%)!important;
+  color:#b15f8b!important;
+  font-size:11px!important;
+}
+.listtitle{
+  color:#23243a!important;
+  font-size:17px!important;
+}
+.listSub{
+  color:#8b6fa9!important;
+  border-left:2px solid #d9c8f3!important;
+}
+.listMetaItem{
+  color:#66657c!important;
+}
+.listMetaItem svg{
+  stroke:#9b84c7!important;
+}
+.listSpeakerLabel{
+  color:#6f5ca0!important;
+}
+.listSpeakerName{
+  color:#57546e!important;
+}
+.listActions{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:10px!important;
+  flex-wrap:nowrap!important;
+}
+
+/* Price is plain text everywhere */
+.priceText{
+  display:inline-block;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#24243a!important;
+  font-size:18px!important;
+  line-height:1.1;
+  font-weight:950!important;
+  white-space:nowrap;
+  cursor:default!important;
+}
+.priceText.free{color:#438a73!important}
+.listPriceText{font-size:17px!important}
+.modalPriceText{font-size:23px!important}
+
+/* cart icon only */
+.cartOnlyBtn{
+  position:relative;
+  width:42px;
+  height:42px;
+  flex:0 0 42px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  border:1px solid #ddd3f4;
+  background:linear-gradient(135deg,#fff1f7 0%,#f3edff 53%,#ebfaff 100%);
+  color:#8c6fd2;
+  cursor:pointer;
+  box-shadow:0 5px 14px rgba(113,88,177,.08);
+  transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.cartOnlyBtn svg{
+  width:21px;
+  height:21px;
+  stroke:currentColor;
+}
+.cartOnlyBtn:hover{
+  transform:translateY(-1px);
+  border-color:#b9a4ed;
+  box-shadow:0 8px 18px rgba(113,88,177,.13);
+}
+.cartOnlyBtn.inCart{
+  color:#fff;
+  border-color:transparent;
+  background:linear-gradient(135deg,#ff88ad 0%,#9f7ff5 55%,#61c8ea 100%);
+}
+.cartOnlyBtn.inCart:after{
+  content:"✓";
+  position:absolute;
+  right:-4px;
+  top:-5px;
+  width:17px;height:17px;border-radius:50%;
+  display:grid;place-items:center;
+  background:#4cb78f;color:white;
+  border:2px solid white;
+  font-size:9px;font-weight:950;
+}
+
+/* cards: same action logic */
+.cardActions{
+  justify-content:flex-start!important;
+}
+.cardActions .cartOnlyBtn{
+  margin-left:2px;
+}
+
+/* modal price */
+.modalBuyRow{
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+}
+
+/* top basket in brand colors */
+.cartTopBtn{
+  border-color:#ded5f2!important;
+  background:linear-gradient(105deg,#fff5f8,#f8f3ff,#f1fbff)!important;
+}
+.cartTopBtn b{
+  background:linear-gradient(105deg,#ff8bae,#9e81f4,#63c9eb)!important;
+}
+
+/* remove old action visuals */
+.addCartTextBtn,.listPriceBtn,.price.priceBuy{display:none!important}
+
+@media(max-width:980px){
+  .listitem{
+    grid-template-columns:1fr auto!important;
+  }
+  .listSpeakerCol{grid-column:1/-1}
+  .listActions{justify-content:flex-start!important}
+}
+@media(max-width:650px){
+  .listitem{grid-template-columns:1fr!important}
+}
+
+
+/* Reordered catalogue controls */
+.main > .toolbar{
+  margin-top:0;
+  margin-bottom:16px;
+}
+.main > .eduTrust{
+  margin-top:0;
+}
+.main > .quickFilterBar{
+  margin-top:14px;
+  margin-bottom:12px;
+}
+.main > .resultLine{
+  margin-top:0;
+}
+
+
+/* Short sharp description inside cards */
+.cardBlurb{
+  margin:6px 0 14px;
+  color:#7c6c8f;
+  font-size:13px;
+  line-height:1.45;
+  min-height:54px;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+
+/* Compact card layout refinements */
+.cards{
+  gap:16px!important;
+}
+.card{
+  padding:18px 20px!important;
+}
+.cardTop{
+  margin-bottom:4px;
+}
+.card h2{
+  margin:8px 0 10px!important;
+  font-size:18px!important;
+  line-height:1.18!important;
+  padding-right:0!important;
+}
+.tags{
+  margin:8px 0 8px!important;
+}
+.cardBlurb{
+  margin:4px 0 10px!important;
+  min-height:44px!important;
+  font-size:13px!important;
+  line-height:1.42!important;
+}
+.cardInfoRow{
+  display:grid;
+  grid-template-columns:120px minmax(0,1fr);
+  gap:12px;
+  align-items:center;
+  margin-top:6px;
+  padding-top:12px;
+  border-top:1px solid var(--line);
+}
+.cardMetaCompact{
+  align-self:stretch;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:2px;
+  padding:9px 11px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:linear-gradient(180deg,#fff,#faf9ff);
+}
+.cardMetaLabel{
+  font-size:13px;
+  font-weight:900;
+  color:var(--text);
+}
+.cardMetaValue{
+  font-size:13px;
+  color:var(--muted);
+}
+.cardSpeakerInline{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:9px 11px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:linear-gradient(180deg,#fff,#fbfcff);
+  min-width:0;
+}
+.cardSpeakerAvatar{
+  width:42px!important;
+  height:42px!important;
+  border-radius:50%!important;
+  flex:0 0 42px!important;
+}
+.cardSpeakerText{
+  min-width:0;
+}
+.cardSpeakerText b{
+  display:block;
+  font-size:14px;
+  line-height:1.2;
+  color:var(--text);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.cardSpeakerText span{
+  display:block;
+  margin-top:2px;
+  font-size:12px;
+  line-height:1.32;
+  color:var(--muted);
+}
+.cardActions{
+  display:flex!important;
+  justify-content:flex-end!important;
+  align-items:center!important;
+  gap:10px!important;
+  margin-top:12px!important;
+  padding-top:12px!important;
+  border-top:1px solid var(--line)!important;
+}
+.cardActions .priceText{
+  text-align:right;
+  font-size:16px!important;
+}
+@media(max-width:760px){
+  .cardInfoRow{
+    grid-template-columns:1fr;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -904,7 +1377,35 @@ dialog{border:0;padding:0;background:transparent;max-width:min(980px,calc(100vw 
 
 <main class="main">
 
-  <section class="quickFilterBar" aria-label="Быстрые фильтры">
+  <div class="toolbar">
+    <div class="viewBtns">
+      <button class="btn active" data-view="cards" type="button">Карточки</button>
+      <button class="btn" data-view="calendar" type="button">Календарь</button>
+      <button class="btn" data-view="list" type="button">Список</button>
+    </div>
+    <div class="sortBtns">
+<button class="btn" id="icsAll" type="button">Добавить выбранное в календарь</button>
+      <button class="cartTopBtn" id="cartOpen" type="button" aria-label="Открыть корзину">
+        <span class="cartTopIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:18px;height:18px"><circle cx="9" cy="19" r="1.6"></circle><circle cx="18" cy="19" r="1.6"></circle><path d="M3 4h2.2l2.2 10.2a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20.2 8H7.2"></path></svg></span>
+        <span>Корзина</span>
+        <b id="cartCount">0</b>
+      </button>
+    </div>
+  </div>
+
+<section class="eduTrust" aria-label="Документы и образовательная лицензия">
+    <div class="licenseCard">
+      <div class="licenseIcon">✓</div>
+      <div>
+        <b>Образовательная лицензия</b>
+        <p>ООО Центр «Психология просто» · № Л035-01255-50/02595758 от 04.07.2025. Для программ ДПО сведения об итоговом документе указываются в карточке курса.</p>
+      </div>
+      <a href="https://zhivaya.org/doc" target="_blank" rel="noopener">Сведения и документы ↗</a>
+    </div>
+    <button class="docThumbBtn" type="button" onclick="openStaticDocModal('cert')"><div class="docMini"><img id="certPreview" alt="Образец сертификата"><div><b>Сертификат Центра</b><span>Для программ объёмом до 16 академических часов включительно.</span><div class="docOpenHint">Открыть сертификат ↗</div></div></div></button>
+    <button class="docThumbBtn" type="button" onclick="openDocModal(16)"><div class="docMini"><img id="udostPreview" alt="Образец удостоверения о повышении квалификации"><div><b>Удостоверение о повышении квалификации</b><span>Для программ объёмом более 16 академических часов.</span><div class="docOpenHint">Открыть образец ↗</div></div></div></button>
+  </section>
+<section class="quickFilterBar" aria-label="Быстрые фильтры">
     <div class="quickFilterTop">
       <div>
         <b>Быстрый выбор</b>
@@ -950,38 +1451,7 @@ dialog{border:0;padding:0;background:transparent;max-width:min(980px,calc(100vw 
       </div>
     </div>
   </section>
-<div class="notice">Даты с пометкой <b>«план»</b> являются ориентиром из рабочего графика. Точная дата подтверждается в карточке программы.</div>
 
-  <section class="eduTrust" aria-label="Документы и образовательная лицензия">
-    <div class="licenseCard">
-      <div class="licenseIcon">✓</div>
-      <div>
-        <b>Образовательная лицензия</b>
-        <p>ООО Центр «Психология просто» · № Л035-01255-50/02595758 от 04.07.2025. Для программ ДПО сведения об итоговом документе указываются в карточке курса.</p>
-      </div>
-      <a href="https://zhivaya.org/doc" target="_blank" rel="noopener">Сведения и документы ↗</a>
-    </div>
-    <button class="docThumbBtn" type="button" onclick="openStaticDocModal('cert')"><div class="docMini"><img id="certPreview" alt="Образец сертификата"><div><b>Сертификат Центра</b><span>Для программ объёмом до 16 академических часов включительно.</span><div class="docOpenHint">Открыть сертификат ↗</div></div></div></button>
-    <button class="docThumbBtn" type="button" onclick="openDocModal(16)"><div class="docMini"><img id="udostPreview" alt="Образец удостоверения о повышении квалификации"><div><b>Удостоверение о повышении квалификации</b><span>Для программ объёмом более 16 академических часов.</span><div class="docOpenHint">Открыть образец ↗</div></div></div></button>
-  </section>
-
-  <section class="stats" id="stats"></section>
-  <div class="toolbar">
-    <div class="viewBtns">
-      <button class="btn active" data-view="cards" type="button">Карточки</button>
-      <button class="btn" data-view="calendar" type="button">Календарь</button>
-      <button class="btn" data-view="list" type="button">Список</button>
-    </div>
-    <div class="sortBtns">
-      <select id="sort">
-        <option value="date">По дате</option>
-        <option value="priceAsc">Сначала дешевле</option>
-        <option value="priceDesc">Сначала дороже</option>
-        <option value="title">По названию</option>
-      </select>
-      <button class="btn" id="icsAll" type="button">Добавить выбранное в календарь</button>
-    </div>
-  </div>
   <div class="resultLine" id="resultLine"></div>
   <div id="content"></div>
 </main>
@@ -989,7 +1459,7 @@ dialog{border:0;padding:0;background:transparent;max-width:min(980px,calc(100vw 
 </div>
 
 <dialog id="modal"><div class="modal" id="modalContent"></div></dialog>
-<dialog id="buyModal"><div class="buyDialog" id="buyModalContent"></div></dialog>
+<dialog id="cartModal"><div class="cartDialog" id="cartModalContent"></div></dialog>
 <dialog id="docModal"><div class="docViewer" id="docModalContent"></div></dialog>
 
 <script>
@@ -1271,7 +1741,7 @@ const els={
   priceRange:$("priceRange"),priceLabel:$("priceLabel"),freeOnly:$("freeOnly"),
   withPriceOnly:$("withPriceOnly"),monthSelect:$("monthSelect"),
   audienceSelect:$("audienceSelect"),durationSelect:$("durationSelect"),docSelect:$("docSelect"),
-  sort:$("sort"),content:$("content"),stats:$("stats"),resultLine:$("resultLine"),
+  content:$("content"),stats:$("stats"),resultLine:$("resultLine"),
   modal:$("modal"),modalContent:$("modalContent")
 };
 const RU_MONTHS=["январь","февраль","март","апрель","май","июнь","июль","август","сентябрь","октябрь","ноябрь","декабрь"],DOW=["ПН","ВТ","СР","ЧТ","ПТ","СБ","ВС"];
@@ -1291,45 +1761,97 @@ function durationClass(p){
   return "duration-medium";
 }
 function priceButtonHtml(p, extraClass=""){
-  return `<span class="price priceBuy ${isFree(p)?"free":""} ${extraClass}" role="button" tabindex="0" data-buy-id="${p.id}" aria-label="Купить программу: ${esc(p.title)}">${esc(priceText(p))}</span>`;
+  return `<span class="priceText ${isFree(p)?"free":""} ${extraClass}">${esc(priceText(p))}</span>`;
 }
-function openBuyModal(id){
-  const p=PROGRAMS.find(x=>x.id===id); if(!p)return;
-  const buyModal=$("buyModal"), box=$("buyModalContent");
-  box.innerHTML=`<div class="buyHead">
-      <button class="buyClose" id="buyClose" type="button">×</button>
-      <div class="eyebrow">${esc(p.dateLabel)} ${p.approx?'<span class="approx">план</span>':''} ${promoBadgeHtml(p)}</div>
-      <h3>Запись на программу</h3>
-      <p>${esc(p.title)}</p>
+
+
+
+const CART_KEY="psychologyProstoCart";
+let CART=new Set();
+try{
+  const saved=JSON.parse(localStorage.getItem(CART_KEY)||"[]");
+  CART=new Set(saved.filter(id=>PROGRAMS.some(p=>p.id===Number(id))).map(Number));
+}catch(e){CART=new Set()}
+
+function saveCart(){
+  try{localStorage.setItem(CART_KEY,JSON.stringify([...CART]))}catch(e){}
+  updateCartUI();
+}
+function updateCartUI(){
+  const count=$("cartCount");
+  if(count) count.textContent=String(CART.size);
+  document.querySelectorAll("[data-cart-id]").forEach(btn=>{
+    const id=Number(btn.dataset.cartId), inside=CART.has(id);
+    btn.classList.toggle("inCart",inside);
+    btn.setAttribute("aria-label",inside?"Уже в корзине":"Добавить в корзину");
+    btn.setAttribute("title",inside?"Уже в корзине":"Добавить в корзину");
+  });
+}
+function addToCart(id){
+  CART.add(Number(id));
+  saveCart();
+}
+function removeFromCart(id){
+  CART.delete(Number(id));
+  saveCart();
+  if($("cartModal")?.open) renderCartModal();
+}
+function parsePriceRange(p){
+  const s=String(p.price||"");
+  if(/бесплат/i.test(s))return [0,0];
+  const nums=(s.match(/\d[\d\s]*/g)||[]).map(x=>Number(x.replace(/\s/g,""))).filter(Number.isFinite);
+  if(!nums.length)return [null,null];
+  if(nums.length===1)return [nums[0],nums[0]];
+  return [nums[0],nums[1]];
+}
+function cartTotalText(){
+  let min=0,max=0,known=true;
+  [...CART].forEach(id=>{
+    const p=PROGRAMS.find(x=>x.id===id); if(!p)return;
+    const [a,b]=parsePriceRange(p);
+    if(a===null){known=false;return}
+    min+=a;max+=b;
+  });
+  if(!known)return "Стоимость уточняется";
+  const f=n=>n.toLocaleString("ru-RU")+" ₽";
+  return min===max?f(min):`${f(min)}–${f(max)}`;
+}
+function renderCartModal(){
+  const modal=$("cartModal"), box=$("cartModalContent");
+  const items=[...CART].map(id=>PROGRAMS.find(p=>p.id===id)).filter(Boolean);
+  box.innerHTML=`<div class="cartHead">
+      <button class="cartClose" id="cartClose" type="button">×</button>
+      <div class="eyebrow">ПСИХОЛОГИЯ ПРОСТО</div>
+      <h3>Корзина</h3>
+      <p>${items.length?`${items.length} ${items.length===1?"программа":"программ(ы)"} выбрано`:"Пока ничего не добавлено"}</p>
     </div>
-    <div class="buyBody">
-      <div class="buySummary">
-        <div><b>${esc(p.format)} · ${esc(p.volume)}</b><br><span>${esc(p.dateLabel)}</span></div>
-        <div class="buySumPrice">${esc(priceText(p))}</div>
-      </div>
-      <form id="buyForm">
-        <div class="buyFields">
-          <div class="field full"><label for="buyerName">Имя</label><input id="buyerName" name="name" autocomplete="name" required placeholder="Как к вам обращаться"></div>
-          <div class="field"><label for="buyerEmail">E-mail</label><input id="buyerEmail" name="email" type="email" autocomplete="email" required placeholder="name@example.com"></div>
-          <div class="field"><label for="buyerTelegram">Telegram</label><input id="buyerTelegram" name="telegram" placeholder="@username"></div>
-        </div>
-        <div class="buyNote">После нажатия «Оплатить» откроется защищённая страница оплаты YooKassa. Введённые здесь данные нужны для оформления записи на выбранную программу.</div>
-        <button class="paySubmit" type="submit">${isFree(p)?"Получить доступ":"Оплатить · "+esc(priceText(p))}</button>
-      </form>
+    <div class="cartBody">
+      ${items.length?`<div class="cartItems">${items.map(p=>`<div class="cartItem">
+        <div><div class="cartItemTitle">${esc(p.title)}</div><div class="cartItemMeta">${esc(p.dateLabel)} · ${esc(p.format)} · ${esc(p.volume)}</div></div>
+        <div class="cartItemPrice">${esc(priceText(p))}</div>
+        <button class="cartRemove" type="button" data-remove-cart="${p.id}" aria-label="Удалить">×</button>
+      </div>`).join("")}</div>
+      <div class="cartFoot">
+        <div class="cartTotal"><b>${esc(cartTotalText())}</b><span>для диапазонов показана суммарная вилка стоимости</span></div>
+        <button class="cartBuyBtn" id="cartBuy" type="button">Купить выбранное</button>
+      </div>`:`<div class="cartEmpty">Добавьте лекции или курсы кнопкой «Добавить в корзину».</div>`}
     </div>`;
-  buyModal.showModal();
-  $("buyClose").onclick=()=>buyModal.close();
-  $("buyForm").onsubmit=(e)=>{
-    e.preventDefault();
-    window.open(PAYMENT_URL,"_blank","noopener");
-  };
+  modal.showModal();
+  $("cartClose").onclick=()=>modal.close();
+  box.querySelectorAll("[data-remove-cart]").forEach(b=>b.onclick=e=>{e.stopPropagation();removeFromCart(Number(b.dataset.removeCart))});
+  const buy=$("cartBuy");
+  if(buy) buy.onclick=()=>window.open(PAYMENT_URL,"_blank","noopener");
 }
-function bindBuyButtons(root=document){
-  root.querySelectorAll("[data-buy-id]").forEach(el=>{
-    const fire=(e)=>{e.preventDefault();e.stopPropagation();openBuyModal(Number(el.dataset.buyId));};
+function bindCartButtons(root=document){
+  root.querySelectorAll("[data-cart-id]").forEach(el=>{
+    const fire=e=>{
+      e.preventDefault();e.stopPropagation();
+      addToCart(Number(el.dataset.cartId));
+    };
     el.addEventListener("click",fire);
     el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){fire(e)}});
   });
+  updateCartUI();
 }
 
 function imgTag(name,cls="avatar"){const sp=SPEAKERS[name]; if(!sp||!sp.photo)return `<span class="${cls} avatarFallback">${esc(initials(name))}</span>`;return `<img class="${cls}" src="${esc(sp.photo)}" alt="${esc(name)}" loading="lazy" decoding="async" onerror="this.outerHTML='<span class=&quot;${cls} avatarFallback&quot;>${esc(initials(name))}</span>'">`}
@@ -1420,19 +1942,17 @@ function filters(){
   })
 }
 function sorted(arr){
-  const a=[...arr],mode=els.sort.value;
-  if(mode==="date")a.sort((x,y)=>x.date.localeCompare(y.date));
-  if(mode==="priceAsc")a.sort((x,y)=>(priceNumber(x.price)??1e9)-(priceNumber(y.price)??1e9));
-  if(mode==="priceDesc")a.sort((x,y)=>(priceNumber(y.price)??-1)-(priceNumber(x.price)??-1));
-  if(mode==="title")a.sort((x,y)=>x.title.localeCompare(y.title,"ru"));
+  const a=[...arr];
+  a.sort((x,y)=>x.date.localeCompare(y.date));
   return a
 }
 function stats(arr){
-  const paid=arr.filter(p=>!isFree(p)&&priceNumber(p.price)!==null),free=arr.filter(isFree).length;
-  const minPrice=paid.length?Math.min(...paid.map(p=>priceNumber(p.price))):0;
-  const sp=new Set(arr.map(p=>p.primarySpeaker).filter(Boolean)).size;
-  els.stats.innerHTML=`<div class="stat"><b>${arr.length}</b><span>программ найдено</span></div><div class="stat"><b>${sp}</b><span>спикеров</span></div><div class="stat"><b>${minPrice?minPrice.toLocaleString("ru-RU")+" ₽":"—"}</b><span>минимальная цена</span></div><div class="stat"><b>${free}</b><span>бесплатных входов</span></div>`;
-  els.resultLine.textContent=arr.length?`Показано ${arr.length} из ${PROGRAMS.length}. Нажмите на программу, чтобы увидеть подробности.`:"Ничего не найдено. Попробуйте ослабить фильтры.";
+  /* Блок статистики удалён из интерфейса, но строка результатов остаётся. */
+  if(els.resultLine){
+    els.resultLine.textContent=arr.length
+      ? `Показано ${arr.length} из ${PROGRAMS.length}. Нажмите на программу, чтобы увидеть подробности.`
+      : "Ничего не найдено. Попробуйте ослабить фильтры.";
+  }
 }
 
 
@@ -1453,6 +1973,11 @@ function taxDeductionBadgeHtml(p){
   </div>`;
 }
 
+
+function cartOnlyButtonHtml(p, extraClass=""){
+  return `<button class="cartOnlyBtn ${extraClass}" type="button" data-cart-id="${p.id}" aria-label="Добавить в корзину: ${esc(p.title)}" title="Добавить в корзину">${cartIconSvg()}</button>`;
+}
+
 function audiencePillsHtml(p){
   const a=String(p.audience||"").toLowerCase();
   const pills=[];
@@ -1466,19 +1991,47 @@ function audiencePillsHtml(p){
 function tagsHtml(p){return p.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}
 function renderCards(arr){
   if(!arr.length){els.content.innerHTML='<div class="empty">По выбранным условиям программ нет.</div>';return}
-  els.content.innerHTML=`<div class="cards">${arr.map(p=>`<button class="card" data-id="${p.id}" type="button">
+  els.content.innerHTML=`<div class="cards">${arr.map(p=>`<div class="card" data-id="${p.id}" role="button" tabindex="0">
     <div class="cardAudienceTop">${audiencePillsHtml(p)}</div>
-    <div class="cardTop">
-      <div>
-        <div class="eyebrow">${esc(p.dateLabel)} ${p.approx?'<span class="approx">план</span>':''} ${promoBadgeHtml(p)}</div>
-      </div>
-    </div>
+    <div class="cardTop"><div><div class="eyebrow">${esc(p.dateLabel)} ${promoBadgeHtml(p)}</div></div></div>
     <h2>${esc(p.title)}</h2>
     <div class="tags">${tagsHtml(p)}</div>
-    <div class="meta"><span><b>${esc(p.format)}</b></span><span>${esc(p.volume)}</span></div>
-    <div class="speakerMini">${p.primarySpeaker?imgTag(p.primarySpeaker):'<span class="avatar avatarFallback">?</span>'}<div><b>${esc(cleanSpeaker(p.primarySpeaker))}</b><span>${p.primarySpeaker&&SPEAKERS[p.primarySpeaker]?esc(SPEAKERS[p.primarySpeaker].role):"подбираем эксперта"}</span></div></div>
-    <div class="cardPriceBottom">${priceButtonHtml(p)}<button class="addCartTextBtn" type="button" data-buy-id="${p.id}">Добавить в корзину</button></div>
-  </button>`).join("")}</div>`;bindCards();bindBuyButtons(els.content)
+    <div class="cardBlurb">${esc(shortCardBlurb(p))}</div>
+    <div class="cardInfoRow">
+      <div class="cardMetaCompact">
+        <span class="cardMetaLabel">${esc(p.format)}</span>
+        <span class="cardMetaValue">${esc(p.volume)}</span>
+      </div>
+      <div class="cardSpeakerInline">
+        ${p.primarySpeaker?imgTag(p.primarySpeaker,"avatar cardSpeakerAvatar"):'<span class="avatar avatarFallback cardSpeakerAvatar">?</span>'}
+        <div class="cardSpeakerText">
+          <b>${esc(cleanSpeaker(p.primarySpeaker)||"Спикер подбирается")}</b>
+          <span>${p.primarySpeaker&&SPEAKERS[p.primarySpeaker]?esc(SPEAKERS[p.primarySpeaker].role):"подбираем эксперта"}</span>
+        </div>
+      </div>
+    </div>
+    <div class="cardActions">
+      ${priceButtonHtml(p)}
+      ${cartOnlyButtonHtml(p)}
+    </div>
+  </div>`).join("")}</div>`;
+  bindCards();bindCartButtons(els.content);
+}
+
+
+function shortCardBlurb(p){
+  const base=String(p.description||"").replace(/\s+/g," ").trim();
+  if(!base) return "";
+  const first=base.split(/(?<=[.!?])\s+/)[0].trim();
+  let s=first.length>=70 ? first : base;
+  s=s.replace(/^Практическ(ая|ий)\s+(лекция|интенсив|курс)\s+о\s+/i,"");
+  s=s.replace(/^Лекция\s+о\s+/i,"");
+  s=s.replace(/^О том,\s+как\s+/i,"Как ");
+  s=s.trim();
+  if(s.length>138){
+    s=s.slice(0,135).replace(/[,\s.;:!?-]+$/,"") + "…";
+  }
+  return s;
 }
 
 function listSubtitle(p){
@@ -1537,19 +2090,18 @@ function renderList(arr){
       <span class="listSpeakerName">${esc(cleanSpeaker(p.primarySpeaker)||"Спикер подбирается")}</span>
     </div>
     <div class="listActions">
-      <button class="listPriceBtn" type="button" data-buy-id="${p.id}" aria-label="Купить программу: ${esc(p.title)}">${esc(priceText(p))}</button>
-      <button class="addCartTextBtn" type="button" data-buy-id="${p.id}" aria-label="Добавить в корзину: ${esc(p.title)}">Добавить в корзину</button>
+      ${priceButtonHtml(p,"listPriceText")}
+      ${cartOnlyButtonHtml(p,"listCartOnly")}
     </div>
   </div>`).join("")}</div>`;
-  bindCards();
-  bindBuyButtons(els.content);
+  bindCards();bindCartButtons(els.content);
 }
 function renderCalendar(arr){
   const y=state.cursor.getUTCFullYear(),m=state.cursor.getUTCMonth(),byDate={};
   arr.filter(p=>dateObj(p.date).getUTCFullYear()===y&&dateObj(p.date).getUTCMonth()===m).forEach(p=>(byDate[p.date]??=[]).push(p));
   const first=new Date(Date.UTC(y,m,1)),start=(first.getUTCDay()+6)%7,gridStart=new Date(Date.UTC(y,m,1-start));
   let grid='<div class="calendar"><div class="calHead"><div class="calnav"><button class="btn small" id="prevM">←</button><button class="btn small" id="todayM">2027</button><button class="btn small" id="nextM">→</button></div><div class="period">'+RU_MONTHS[m][0].toUpperCase()+RU_MONTHS[m].slice(1)+' '+y+'</div></div><div class="calwrap"><div class="weekhead">'+DOW.map(d=>`<div>${d}</div>`).join("")+'</div><div class="monthgrid">';
-  for(let i=0;i<42;i++){const d=new Date(gridStart);d.setUTCDate(gridStart.getUTCDate()+i);const key=d.toISOString().slice(0,10),same=d.getUTCMonth()===m;grid+=`<div class="day ${same?"":"other"}"><div class="daynum">${d.getUTCDate()}</div>${(byDate[key]||[]).map(p=>`<button class="calEvent" data-id="${p.id}" type="button"><strong>${esc(p.title)}</strong><small>${esc(priceText(p))} ${p.approx?"· план":""}</small></button>`).join("")}</div>`}
+  for(let i=0;i<42;i++){const d=new Date(gridStart);d.setUTCDate(gridStart.getUTCDate()+i);const key=d.toISOString().slice(0,10),same=d.getUTCMonth()===m;grid+=`<div class="day ${same?"":"other"}"><div class="daynum">${d.getUTCDate()}</div>${(byDate[key]||[]).map(p=>`<button class="calEvent" data-id="${p.id}" type="button"><strong>${esc(p.title)}</strong><small>${esc(priceText(p))} </small></button>`).join("")}</div>`}
   grid+='</div></div></div>';els.content.innerHTML=grid;bindCards();
   $("prevM").onclick=()=>{state.cursor=new Date(Date.UTC(y,m-1,1));render()};
   $("nextM").onclick=()=>{state.cursor=new Date(Date.UTC(y,m+1,1));render()};
@@ -1557,9 +2109,17 @@ function renderCalendar(arr){
 }
 function bindCards(){
   els.content.querySelectorAll("[data-id]").forEach(b=>{
-    b.addEventListener("click",()=>openProgram(Number(b.dataset.id)));
+    const open=e=>{
+      if(e.target.closest("[data-cart-id],[data-remove-cart]"))return;
+      openProgram(Number(b.dataset.id));
+    };
+    b.addEventListener("click",open);
     if(b.getAttribute("role")==="button"){
-      b.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openProgram(Number(b.dataset.id));}});
+      b.addEventListener("keydown",e=>{
+        if((e.key==="Enter"||e.key===" ")&&!e.target.closest("[data-cart-id]")){
+          e.preventDefault();openProgram(Number(b.dataset.id));
+        }
+      });
     }
   })
 }
@@ -1648,7 +2208,7 @@ function bullets(p){
 }
 function openProgram(id){
   const p=PROGRAMS.find(x=>x.id===id);if(!p)return;const b=bullets(p),hasCurr=!!CURRICULA[p.id];
-  els.modalContent.innerHTML=`<div class="modalHead"><button class="modalClose" id="modalClose" type="button">×</button><div class="eyebrow">${esc(p.dateLabel)} ${p.approx?'<span class="approx">план</span>':''} ${promoBadgeHtml(p)}</div><h2>${esc(p.title)}</h2><p>${esc(p.format)} · ${esc(p.volume)}</p></div>
+  els.modalContent.innerHTML=`<div class="modalHead"><button class="modalClose" id="modalClose" type="button">×</button><div class="eyebrow">${esc(p.dateLabel)}  ${promoBadgeHtml(p)}</div><h2>${esc(p.title)}</h2><p>${esc(p.format)} · ${esc(p.volume)}</p></div>
   <div class="modalBody"><div><h3>${p.id===21?"Полное описание":"О программе"}</h3><p class="lead">${esc(p.description)}</p>${audiencePillsHtml(p)}${taxDeductionBadgeHtml(p)}<div class="tags">${tagsHtml(p)}</div>
   <div class="detailGrid"><div class="detail"><b>Дата</b>${esc(p.dateLabel)}</div><div class="detail"><b>Формат</b>${esc(p.format)}</div><div class="detail"><b>Объём</b>${esc(p.volume)}</div><div class="detail"><b>Для кого</b>${esc(p.audience)}</div></div>
   ${curriculumHtml(p)}
@@ -1657,8 +2217,8 @@ function openProgram(id){
   ${courseFactsHtml(p)}
   ${educationDocHtml(p)}
   </div>${profileCardsHtml(p)}</div>
-  <div class="modalFoot"><div class="modalPrice"><div class="modalBuyRow">${priceButtonHtml(p,"modalBuy")}<button class="addCartTextBtn" type="button" data-buy-id="${p.id}">Добавить в корзину</button></div><span>нажмите на цену или кнопку, чтобы оформить покупку</span></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="singleIcs" type="button">В календарь</button></div></div>`;
-  els.modal.showModal();$("modalClose").onclick=()=>els.modal.close();$("singleIcs").onclick=()=>downloadICS([p]);bindBuyButtons(els.modalContent);
+  <div class="modalFoot"><div class="modalPrice"><div class="modalBuyRow">${priceButtonHtml(p,"modalPriceText")}${cartOnlyButtonHtml(p,"modalCartOnly")}</div><span>добавьте программу в корзину для покупки</span></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="singleIcs" type="button">В календарь</button></div></div>`;
+  els.modal.showModal();$("modalClose").onclick=()=>els.modal.close();$("singleIcs").onclick=()=>downloadICS([p]);bindCartButtons(els.modalContent);
 }
 function render(){
   document.documentElement.dataset.theme=localStorage.getItem("pp-theme")||"light";
@@ -1675,7 +2235,7 @@ document.querySelectorAll("[data-format]").forEach(x=>x.onchange=()=>{x.checked?
 document.querySelectorAll("[data-speaker]").forEach(x=>x.onchange=()=>{x.checked?state.speakers.add(x.dataset.speaker):state.speakers.delete(x.dataset.speaker);render()});
 document.querySelectorAll("[data-tag]").forEach(x=>x.onclick=()=>{state.tags.has(x.dataset.tag)?state.tags.delete(x.dataset.tag):state.tags.add(x.dataset.tag);x.classList.toggle("on");render()});
 
-[els.search,els.dateFrom,els.dateTo,els.exactOnly,els.freeOnly,els.withPriceOnly,els.monthSelect,els.audienceSelect,els.durationSelect,els.docSelect,els.sort]
+[els.search,els.dateFrom,els.dateTo,els.exactOnly,els.freeOnly,els.withPriceOnly,els.monthSelect,els.audienceSelect,els.durationSelect,els.docSelect]
   .forEach(x=>x.addEventListener(x===els.search?"input":"change",render));
 
 els.priceRange.oninput=()=>{els.priceLabel.textContent=Number(els.priceRange.value).toLocaleString("ru-RU")+" ₽";render()};
@@ -1721,13 +2281,15 @@ $("resetBtn").onclick=clearAllFilters;
 $("themeBtn").onclick=()=>{const n=document.documentElement.dataset.theme==="dark"?"light":"dark";localStorage.setItem("pp-theme",n);render()};
 $("icsAll").onclick=()=>downloadICS(sorted(filters()));
 els.modal.addEventListener("click",e=>{if(e.target===els.modal)els.modal.close()});
-$("buyModal").addEventListener("click",e=>{if(e.target===$("buyModal"))$("buyModal").close()});
+$("cartModal").addEventListener("click",e=>{if(e.target===$("cartModal"))$("cartModal").close()});
+$("cartOpen").onclick=renderCartModal;
 $("docModal").addEventListener("click",e=>{if(e.target===$("docModal")) $("docModal").close()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){ if(els.modal.open) els.modal.close(); if($("docModal").open) $("docModal").close(); }});
 
 $("certPreview").src=makeStaticDocSrc("cert");
 $("udostPreview").src=makeProgramDocSrc(PROGRAMS.find(x=>x.id===16));
 
+updateCartUI();
 render();
 </script>
 </body>
